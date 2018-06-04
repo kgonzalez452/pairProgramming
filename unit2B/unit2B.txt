@@ -9,6 +9,43 @@ Here's how it works. The function has an "accumulator value" which starts as the
 Challenge 5
 Construct a function intersection that compares input arrays and returns a new array with elements found in all of the inputs. BONUS: Use reduce!
 
+What randy did for #5
+
+// Challenge 5
+function intersection(arrayOfArrays) {
+  var result = [];
+  var dict = {};
+
+  dict = reduce(arrayOfArrays, reducer, dict);
+
+  for (let key in dict) {
+    if (dict.hasOwnProperty(key)) {
+      if (dict[key] == arrayOfArrays.length) {
+        result.push(+key);
+      }
+    }
+  }
+
+  return result.length > 0 ? result : null;
+}
+
+// console.log(intersection([[5, 10, 20, 15, 1], [88, 1, 7, 5], [1, 10, 15, 5, 20]])); // [5, 1]
+
+// accumulator = {} (a), array[i] (b);
+const reducerA = (a, b) => {
+  console.log(a, b);
+  return a.filter(elem => {
+    return b.includes(elem);
+  });
+};
+
+function intersectionA(arrayOfArrays) {
+  return reduce(arrayOfArrays, reducerA, arrayOfArrays[0]);
+}
+
+console.log(intersectionA([[5, 10, 20, 15, 1], [88, 1, 7, 5], [1, 10, 15, 5, 20]])); // [5, 1]
+
+
 Challenge 6
 Construct a function union that takes an input array of arrays, compares each array, and returns a new flat array that contains all elements. If there are duplicate elements, only add it once to the new array. Preserve the order of the elements starting from the first element of the first input array. 
 BONUS: Use reduce!
